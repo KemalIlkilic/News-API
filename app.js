@@ -2,12 +2,14 @@ require("dotenv").config();
 require("express-async-errors");
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
-const connectDB = require("./db/connect");
-const productRouter = require("./routes/products");
+app.use(cors());
 
-const notFoundMiddleware = require("./middleware/not-found");
+const connectDB = require("./db/connect");
+const newsRouter = require("./routes/news");
+
 const errorMiddleware = require("./middleware/error-handler");
 
 // middleware
@@ -19,17 +21,17 @@ app.get("/", (req, res) => {
   res.send("<h1>Store API</h1><a href='/api/v1/products'>products</a>");
 });
 
-app.use("/api/v1/products", productRouter);
+app.use("/api/v1/news", newsRouter);
 
-// products route
+// news route
 
-app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
 const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
+    console.log("MONGO_URI:", process.env.MONGO_URI);
     // connect db
     await connectDB(process.env.MONGO_URI);
     app.listen(port, () => {

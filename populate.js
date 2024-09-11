@@ -1,6 +1,6 @@
 require("dotenv").config();
 const connectDB = require("./db/connect");
-const Product = require("./models/product");
+const News = require("./models/news");
 
 const jsonProducts = require("./products.json");
 
@@ -8,8 +8,8 @@ const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     console.log("connected to db");
-    await Product.deleteMany();
-    await Product.create(jsonProducts);
+    await News.deleteMany();
+    await News.create(jsonProducts);
     console.log("success");
     process.exit(0);
   } catch (error) {
