@@ -40,6 +40,18 @@ const getUrlContent = async (req, res) => {
   }
 };
 
+const updateNews = async (req, res) => {
+  const { id: articleId } = req.params;
+  const news = await News.findOneAndUpdate({ _id: articleId }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!news) {
+    return next(createCustomError(`No task with id: ${articleId}`, 404));
+  }
+  res.status(200).json({ news });
+};
+
 /* const changeLike = async (req, res) => {
   const { isLiked } = req.body; // Getting the isLiked value from the request body
   try {
@@ -58,4 +70,4 @@ const getUrlContent = async (req, res) => {
   }
 }; */
 
-module.exports = { getAllNewsStatic, getAllNews, getUrlContent };
+module.exports = { getAllNewsStatic, getAllNews, getUrlContent, updateNews };
