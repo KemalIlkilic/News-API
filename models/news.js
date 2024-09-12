@@ -17,13 +17,13 @@ const newsSchema = new mongoose.Schema({
     type: String,
     required: [true, "News URL must be provided"],
   },
-  isLiked: {
-    type: Boolean,
-    default: false,
-  },
   category: {
     type: String,
     required: [true, "News category must be provided"],
+  },
+  summary: {
+    type: String,
+    default: "Summary did not exist",
   },
   createdAt: {
     type: Date,
