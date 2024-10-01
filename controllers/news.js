@@ -1,7 +1,17 @@
 const News = require("../models/news");
+const Articles = require("../models/articles");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const { auth } = require("../../frontend/src/firebase");
+
+const createArticle = async (req, res) => {
+  try {
+    const article = await Articles.create(req.body);
+    res.status(201).json({ article });
+  } catch (error) {
+    res.status(400).json({ message: "Error creating article", error });
+  }
+};
 
 const getAllNewsStatic = async (req, res) => {
   const news = await News.find({});
@@ -111,4 +121,5 @@ module.exports = {
   getUrlContent,
   updateNews,
   addNewsBatch,
+  createArticle,
 };

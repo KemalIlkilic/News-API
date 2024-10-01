@@ -7,9 +7,10 @@ const {
   getUrlContent,
   updateNews,
   addNewsBatch,
+  createArticle,
 } = require("../controllers/news");
 
-router.route("/").get(getAllNews);
+router.route("/").get(getAllNews).post(createArticle);
 router.route("/static").get(getAllNewsStatic);
 router.route("/url/:url").get(getUrlContent);
 router.route("/:id").patch(updateNews);
