@@ -16,6 +16,7 @@ const newsSchema = new mongoose.Schema({
   url: {
     type: String,
     required: [true, "News URL must be provided"],
+    unique: true,
   },
   category: {
     type: String,
@@ -28,6 +29,10 @@ const newsSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  isPublished: {
+    type: Boolean,
+    default: false, // Varsayılan olarak yayınlanmamış (false)
   },
 });
 
